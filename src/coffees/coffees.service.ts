@@ -32,7 +32,7 @@ export class CoffeesService {
   }
 
   async findOne(id: any) {
-    const coffee = await this.coffeeRepository.findOne(id);
+    const coffee = await this.coffeeRepository.findOne({ where: { id: id } });
     if (!coffee) {
       //   throw new HttpException(`Coffee #${id} not found`, HttpStatus.NOT_FOUND);
       throw new NotFoundException(`Coffee #${id} not found`);
@@ -57,7 +57,8 @@ export class CoffeesService {
   }
 
   async remove(id: any) {
-    const coffee = await this.coffeeRepository.findOne(id);
+    // const coffee = await this.coffeeRepository.findOne(id);
+    const coffee = await this.coffeeRepository.findOne({ where: { id: id } });
     return this.coffeeRepository.remove(coffee);
   }
 }
